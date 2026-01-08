@@ -1,0 +1,15 @@
+//This needs to be saved in user settings, not in workspace
+[
+  {
+    "key": "ctrl+alt+1",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Slides: Export2HTML (current notebook)",
+    "when": "notebookEditorFocused",
+  },
+  {
+    "key": "ctrl+alt+2",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Slides: Export2PDF (current notebook)",
+    "when": "notebookEditorFocused"
+  }
+]

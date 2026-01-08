@@ -1,0 +1,36 @@
+# .pre-commit-config.yaml
+# This configuration file specifies the hooks used by the pre-commit framework.
+# These hooks automatically run linters and formatters on code changes before they are committed.
+# The repositories listed here are where the hooks are sourced from.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0 # Check for the latest version
+    hooks:
+      # - id: trailing-whitespace
+      # - id: end-of-file-fixer
+      - id: check-yaml
+
+  - repo: https://github.com/psf/black
+    rev: 24.8.0 # Auto-formats code, last version before Python 3.8 no longer supported
+    hooks:
+      - id: black
+        args: ['--config=pyproject.toml'] # Specifies the configuration file for Black's settings
+        language_version: python # Specifies the language version to use for the hook (Python in this case)
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
+    hooks:
+      - id: pyupgrade
+        args: ['--py39-plus']
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.41.0
+    hooks:
+      - id: markdownlint
+        args: ['--config=.markdownlint.yaml']

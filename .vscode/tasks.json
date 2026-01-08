@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Slides: Export2HTML (current notebook)",
+      "type": "shell",
+      "command": "C:\\Users\\ebruun3\\Documents\\GitHub\\CEE6501\\convert_Notebook-Slides.bat",
+      "args": [
+        "${file}"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+  {
+    "label": "Slides: Export2PDF (current notebook)",
+    "type": "shell",
+    "command": "C:\\Users\\ebruun3\\Documents\\GitHub\\CEE6501\\convert_Slides-PDF.bat",
+    "args": ["${file}"],
+    "problemMatcher": [],
+    "presentation": {
+      "reveal": "always",
+      "panel": "dedicated"
+    }
+  }
+  ]
+}
