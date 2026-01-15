@@ -8,7 +8,7 @@ This week introduces the course structure and establishes the core software tool
 
 #### Introduction
 
-Introductory lecture about course content, course syllabus, and generally what to expect.
+Course scope, learning objectives, expectations, and semester structure.
 
 - 🌐 **Slides (HTML):** [L1_intro.slides.html](Lectures/L1/L1_intro.slides.html)
 - 📄 **Slides (PDF):** [L1_intro.pdf](Lectures/L1/L1_intro.pdf)
@@ -24,7 +24,7 @@ Version control, collaboration workflows, and course repository setup.
 
 #### Python & Conda Environment Setup
 
-Introduction to Python, Conda environments, and the computational tools used in the course.
+Setup of Python and Conda environments and introduction to the core computational tools used in the course.
 
 - 🌐 **Slides (HTML):** [L1_software_python.slides.html](Lectures/L1/L1_software_python.slides.html)
 - 📄 **Slides (PDF):** [L1_software_python.pdf](Lectures/L1/L1_software_python.pdf)
@@ -32,7 +32,7 @@ Introduction to Python, Conda environments, and the computational tools used in 
 
 #### VScode Setup
 
-Introduction to Python, Conda environments, and the computational tools used in the course.
+Configuration of VS Code for Python development, Jupyter notebooks, and course workflows.
 
 - 🌐 **Slides (HTML):** [L1_software_VScode.slides.html](Lectures/L1/L1_software_VScode.slides.html)
 - 📄 **Slides (PDF):** [L1_software_VScode.pdf](Lectures/L1/L1_software_VScode.pdf)
