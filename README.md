@@ -6,6 +6,14 @@ This week introduces the course structure and establishes the core software tool
 
 ### 📖 Lectures
 
+#### Introduction
+
+Introductory lecture about course content, course syllabus, and generally what to expect.
+
+- 🌐 **Slides (HTML):** [L1_intro.slides.html](Lectures/L1/L1_intro.slides.html)
+- 📄 **Slides (PDF):** [L1_intro.pdf](Lectures/L1/L1_intro.pdf)
+- 📓 **Notebook:** [L1_intro.ipynb](Lectures/L1/L1_intro.ipynb)
+
 #### Git & GitHub Fundamentals
 
 Version control, collaboration workflows, and course repository setup.
@@ -34,7 +42,8 @@ Introduction to Python, Conda environments, and the computational tools used in 
 
 ### 📝 Assignments
 
-- **Assignment Workflow:** [L1_assignments.pdf](Lectures/L1/L1_assignments.pdf)
+**How to Complete Assignements:** [L1_assignments.pdf](Lectures/L1/L1_assignments.pdf)
+
 - ✍️ **Written Assignment:** [A1_written.md](Assignments/A1_written.md)
 - 💻 **Coding Assignment:**
   [A1_code.ipynb](Assignments/A1_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A1_code.ipynb)
