@@ -24,5 +24,16 @@
     "command": "workbench.action.tasks.runTask",
     "args": "Slides: Export HTML + PDF (current notebook)",
     "when": "notebookEditorFocused"
+  },
+  {
+    "key": "cmd+shift+r",
+    "command": "workbench.action.openWith",
+    "args": {
+      "viewId": "default",
+      "options": {
+        "openInNewGroup": false
+      }
+    },
+    "when": "notebookEditorFocused"
   }
 ]
