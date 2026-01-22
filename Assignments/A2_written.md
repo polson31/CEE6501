@@ -43,7 +43,7 @@ written by you and you must understand it**. If you used outside help, add a sho
 
 ---
 
-### Question 1 — From Equations to Matrix Form
+### Question 1 — From Equations to Matrix Form (10 Points)
 
 Consider the following system of four equations in four unknowns:
 
@@ -62,7 +62,7 @@ $$
 
 ---
 
-### Question 2 — 2D Linear Transformations (Plotting)
+### Question 2 — 2D Linear Transformations (10 Points)
 
 Let the vector
 
@@ -102,7 +102,7 @@ $$
 
 ---
 
-### Question 3 — Matrix Multiplication
+### Question 3 — Matrix Multiplication (10 Points)
 
 Let
 
@@ -130,7 +130,7 @@ $$
 
 ---
 
-### Question 4 — Block Matrix Multiplication (Dimension Check)
+### Question 4 — Block Matrix Multiplication (10 Points)
 
 Consider the matrices
 
@@ -176,7 +176,7 @@ and verify dimensional consistency.
 
 ---
 
-### Question 5 — Gauss–Jordan (Setup + Partial Reduction)
+### Question 5 — Gauss–Jordan (10 Points)
 
 Let
 
@@ -202,7 +202,7 @@ $$
 
 ---
 
-### Question 6 — LU Decomposition (Compute L and U)
+### Question 6 — LU Decomposition (10 Points)
 
 Using the same matrix $\mathbf{A}$ from Question 5:
 
@@ -213,7 +213,7 @@ Using the same matrix $\mathbf{A}$ from Question 5:
 
 ---
 
-### Question 7 — Cholesky Factorization + Multiple Right-Hand Sides
+### Question 7 — Cholesky Factorization (20 Points)
 
 Let the symmetric positive definite matrix
 
@@ -254,7 +254,7 @@ For each solve, show:
 
 ---
 
-### Question 8 — Point Jacobi Iterations (Compare Two Initial Guesses)
+### Question 8 — Point Jacobi Iterations (20 Points)
 
 Using the SPD system from Question 7 and $\mathbf{b}_{1}$:
 

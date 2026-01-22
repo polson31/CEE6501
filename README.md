@@ -61,36 +61,32 @@ conceptual understanding to practical computational implementation in Python.
 Students will learn how matrices represent linear mappings, how matrix properties influence solution strategies, and why
 factorization-based solvers are central to numerical computation.
 
-(work in progress)
-
 ### 📖 Lectures
 
 #### Matrix Representation and Operations
 
-Matrix Basics
+This lecture introduces matrices as linear mappings, covering notation, indexing, matrix–vector products, and
+fundamental matrix operations used throughout structural analysis.
 
-<!-- - 🌐 **Slides (HTML):** [L1_software_git.slides.html](Lectures/L1/L1_software_git.slides.html) -->
-
+- 🌐 **Slides (HTML):** [L2_1_matrices.slides.html](Lectures/L2/L2_1_matrices.slides.html)
 - 📄 **Slides (PDF):** [L2_1_matrices.pdf](Lectures/L2/L2_1_matrices.pdf)
 - 📓 **Notebook:** [L2_1_matrices.ipynb](Lectures/L2/L2_1_matrices.ipynb)
 
 #### Linear System Solution Methods
 
-Ways to solve linear system of equations
+This lecture develops direct and iterative methods for solving linear systems, emphasizing elimination, factorization,
+and solver efficiency for large-scale engineering problems.
 
-<!-- - 🌐 **Slides (HTML):** [L1_software_python.slides.html](Lectures/L1/L1_software_python.slides.html) -->
-
+- 🌐 **Slides (HTML):** [L2_2_solvers.slides.html](Lectures/L2/L2_2_solvers.slides.html)
 - 📄 **Slides (PDF):** [L2_2_solvers.pdf](Lectures/L2/L2_2_solvers.pdf)
 - 📓 **Notebook:** [L2_2_solvers.ipynb](Lectures/L2/L2_2_solvers.ipynb)
 
-#### Implementing Matrix Methods in Python
+### Extra In-Class Code
 
-Implementation in Python
-
-<!-- - 🌐 **Slides (HTML):** [L1_software_python.slides.html](Lectures/L1/L1_software_python.slides.html) -->
-
-- 📄 **Slides (PDF):** [L2_3_implementation.pdf](Lectures/L2/L2_3_implementation.pdf)
-- 📓 **Notebook:** [L2_3_implementation.ipynb](Lectures/L2/L2_3_implementation.ipynb)
+- [L2_OperationCount.ipynb](Code/L2/L2_OperationCount.ipynb)
+  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Code/L2/L2_OperationCount.ipynb)
+- [L2_IterationPractice.ipynb](Code/L2/L2_IterationPractice.ipynb)
+  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Code/L2/L2_IterationPractice.ipynb)
 
 ### 📝 Assignments
 
