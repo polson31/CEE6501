@@ -102,17 +102,47 @@ See Lecture 1 for how to complete assignments guide.
 
 ## 📅 Week 3 — Direct Stiffness Method (Trusses)
 
-(Content to be released)
+This week introduces the **Direct Stiffness Method (DSM)** for planar trusses. We begin by developing the **local
+behavior** of a single axial member and then extend those ideas to **global truss analysis**, including coordinate
+transformations, stiffness assembly, boundary conditions, and recovery of member forces.
 
 ### 📖 Lectures
 
-- Lecture slides (HTML / PDF)
-- Jupyter notebook(s)
+#### Part 1 — Local Behavior of an Axial Element
+
+This lecture builds the axial bar element from first principles: truss DOFs and sign conventions, local vs global
+coordinates, axial kinematics and statics, the $2 \times 2$ local stiffness matrix, a brief preview of flexibility, and
+the local $4 \times 4$ element stiffness form (local-only; not yet transformed).
+
+- 🌐 **Slides (HTML):** [L3_1_AxialElement.slides.html](Lectures/L3/L3_1_AxialElement.slides.html)
+- 📄 **Slides (PDF):** [L3_1_AxialElement.pdf](Lectures/L3/L3_1_AxialElement.pdf)
+- 📓 **Notebook:** [L3_1_AxialElement.ipynb](Lectures/L3/L3_1_AxialElement.ipynb)
+
+#### Part 2 — The Direct Stiffness Method (DSM) for Trusses
+
+This lecture develops the full DSM workflow for trusses: local-to-global transformations using direction cosines, global
+element stiffness $[k]_g = [T]^T [k'] [T]$, nodal equilibrium and why assembly works, global stiffness assembly by
+scatter-add, why unsupported structures yield singular $[K]$, application of supports via partitioning, solving for
+displacements and reactions, and recovery of member axial forces in local coordinates.
+
+- 🌐 **Slides (HTML):** [L3_2_Trusses.slides.html](Lectures/L3/L3_2_Trusses.slides.html)
+- 📄 **Slides (PDF):** [L3_2_Trusses.pdf](Lectures/L3/L3_2_Trusses.pdf)
+- 📓 **Notebook:** [L3_2_Trusses.ipynb](Lectures/L3/L3_2_Trusses.ipynb)
+
+### Extra In-Class Code
+
+<!-- - [L2_OperationCount.ipynb](Code/L2/L2_OperationCount.ipynb)
+  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Code/L2/L2_OperationCount.ipynb)
+- [L2_IterationPractice.ipynb](Code/L2/L2_IterationPractice.ipynb)
+  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Code/L2/L2_IterationPractice.ipynb) -->
 
 ### 📝 Assignments
 
-- ✍️ **Written Assignment:** [A2_written.md](Assignments/A2_written.md)
-- Coding assignment
+See Lecture 1 for how to complete assignments guide.
+
+- ✍️ **Written Assignment:** [A3_written.md](Assignments/A3_written.md)
+- 💻 **Coding Assignment:**
+  [A2_code.ipynb](Assignments/A3_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A3_code.ipynb)
 
 ---
 
