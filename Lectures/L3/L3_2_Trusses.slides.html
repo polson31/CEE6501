@@ -7909,6 +7909,7 @@ $$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Calculating-the-Global-Stiffness-Matrix,-$%5Cboldsymbol%7BK%7D$">Calculating the Global Stiffness Matrix, $\boldsymbol{K}$<a class="anchor-link" href="#Calculating-the-Global-Stiffness-Matrix,-$%5Cboldsymbol%7BK%7D$">¶</a></h3><p>The global element stiffness matrix is obtained by <strong>rotating the local axial stiffness</strong>
 into the global coordinate system:</p>
+<p><br/></p>
 <p>$$
 {\scriptsize
 \boldsymbol{K}
@@ -8016,80 +8017,610 @@ $$</p>
 </div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec3-equilibrium">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec3-assembly-title">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-3-%E2%80%94-Nodal-Equilibrium-and-Why-Assembly-Works">Part 3 — Nodal Equilibrium and Why Assembly Works<a class="anchor-link" href="#Part-3-%E2%80%94-Nodal-Equilibrium-and-Why-Assembly-Works">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-show equilibrium at a node, as a function of individual element stiffnesses, this is kind of a precursor to
-doing a direct assembly</p>
-</blockquote>
-<p>At a joint, equilibrium requires:</p>
-<ul>
-<li>Sum of element end forces (in global components) + external load = 0</li>
-</ul>
-<p>Matrix viewpoint:</p>
-<ul>
-<li>Each element contributes forces into a shared pool of DOFs.</li>
-<li>Assembly collects these contributions into a global equation:
-$$\{F\} = [K]\{u\}$$</li>
-</ul>
+<h2 id="Part-3-%E2%80%94-Assembling-the-Global-Structure-Stiffness-Matrix-(Manual-Method)">Part 3 — Assembling the Global Structure Stiffness Matrix (Manual Method)<a class="anchor-link" href="#Part-3-%E2%80%94-Assembling-the-Global-Structure-Stiffness-Matrix-(Manual-Method)">¶</a></h2>
 </div>
 </div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4-assembly">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec3-direct-derivation">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-2.4-%E2%80%94-Assembling-the-Global-Stiffness-Matrix">Part 2.4 — Assembling the Global Stiffness Matrix<a class="anchor-link" href="#Part-2.4-%E2%80%94-Assembling-the-Global-Stiffness-Matrix">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-assembling the global stiffness matrix, from local matrices rotated to global, figure 3.15 Kassimalu really
-good</p>
-</blockquote>
-<p>Steps:</p>
-<ol>
-<li>Choose a DOF numbering for all nodes</li>
-<li>For each member:<ul>
-<li>compute $[k]_g$</li>
-<li>add its terms into $[K]$ using the member’s DOF indices</li>
+<h3 id="Example-Structure">Example Structure<a class="anchor-link" href="#Example-Structure">¶</a></h3><p>We now move from <strong>element-level</strong> to a <strong>complete truss structure</strong> behavior.</p>
+<ul>
+<li>Structure composed of <strong>3 axial truss elements</strong></li>
+<li><strong>4 nodes</strong>, each with $(X,Y)$ translational DOFs, node 1 at the top</li>
+<li>Total system size: <strong>8 global degrees of freedom</strong><ul>
+<li>node 1: DOF (1,2)</li>
+<li>node 2: DOF (3,4)</li>
+<li>node 3: DOF (5,6)</li>
+<li>node 4: DOF (7,8)</li>
 </ul>
 </li>
-</ol>
-<p>Implementation mindset:</p>
-<ul>
-<li>Start with $[K]=0$</li>
-<li>For each element, scatter-add $[k]_g$ into $[K]$</li>
 </ul>
+<div style="display:flex; gap:1.5rem; align-items:center;">
+<div style="flex:0.5;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure1.png" style="width:80%;"/>
+</div>
+<div style="flex:0.5;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure2.png" style="width:80%;"/>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec5-worked-no-supports">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec3-element-view">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-5-%E2%80%94-Worked-Example:-First-Attempt-(No-Supports)">Part 5 — Worked Example: First Attempt (No Supports)<a class="anchor-link" href="#Part-5-%E2%80%94-Worked-Example:-First-Attempt-(No-Supports)">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-worked out solution (maybe example 3.1 McGuire, example no joints), also example 3.7 Kassimali but ignore
-constrained DOFs</p>
-</blockquote>
-<p>Goal:</p>
+<h3 id="Element-Level-View-of-the-Structure">Element-Level View of the Structure<a class="anchor-link" href="#Element-Level-View-of-the-Structure">¶</a></h3><div style="text-align:center;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure3.png" style="width:80%;"/>
+</div>
 <ul>
-<li>Assemble $[K]$ and $\{F\}$ for a small truss.</li>
-<li>Attempt to solve $\{F\} = [K]\{u\}$.</li>
+<li>Nodes <strong>2, 3, and 4</strong> are <strong>pinned</strong> (no displacement)</li>
+<li><strong>Node 1</strong> is free to move</li>
+<li>All three elements are connected at <strong>node 1</strong></li>
+<li>A displacement at node 1 induces forces in <strong>all connected members</strong></li>
 </ul>
-<p>Observation:</p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec3-element-forces">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Element-Forces-and-Notation">Element Forces and Notation<a class="anchor-link" href="#Element-Forces-and-Notation">¶</a></h3><p>Local forces are defined <strong>per element</strong>:</p>
 <ul>
-<li>Without supports, $[K]$ is singular.</li>
+<li>Superscript $(e)$ → element number</li>
+<li>Subscript $(i)$ → local DOF index</li>
 </ul>
+<p>Examples:</p>
+<ul>
+<li>$F^{(1)}_3$ → force at local DOF 3 in <strong>element 1</strong></li>
+<li>$F^{(2)}_1$ → force at local DOF 1 in <strong>element 2</strong></li>
+</ul>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec3-equilibrium-node1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Equilibrium-Equations-at-Node-1">Equilibrium Equations at Node 1<a class="anchor-link" href="#Equilibrium-Equations-at-Node-1">¶</a></h3><p>Because all elements share <strong>node 1</strong>, equilibrium at this node couples the response of all members.</p>
+<p>$P$ = external applied loaded</p>
+<p>$F$ = internal forces</p>
+<div style="display:flex; gap:1.5rem; align-items:center;">
+<div style="flex:0.55;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure4.png" style="width:80%;"/>
+</div>
+<div style="flex:0.45; font-size:0.95em;">
+<p><strong>Force equilibrium at node 1:</strong></p>
+    $$P_1 = F_3^{(1)} + F_1^{(2)} + F_3^{(3)}$$
+    $$P_2 = F_4^{(1)} + F_2^{(2)} + F_4^{(3)}$$
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6f8efbcc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Compatability-Equations">Compatability Equations<a class="anchor-link" href="#Compatability-Equations">¶</a></h3><div style="text-align:center;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure3.png" style="width:70%;"/>
+</div>
+<p>$d_1$ and $d_2$ are global displacements in X and Y at node 1</p>
+<p>$$
+\begin{aligned}
+\text{Member }(1): \quad
+&amp; v^{(1)}_1 = v^{(1)}_2 = 0,
+&amp;&amp; v^{(1)}_3 = d_1,
+&amp;&amp; v^{(1)}_4 = d_2 \\[6pt]
+\text{Member }(2): \quad
+&amp; v^{(2)}_1 = d_1,
+&amp;&amp; v^{(2)}_2 = d_2,
+&amp;&amp; v^{(2)}_3 = v^{(2)}_4 = 0 \\[6pt]
+\text{Member }(3): \quad
+&amp; v^{(3)}_1 = v^{(3)}_2 = 0,
+&amp;&amp; v^{(3)}_3 = d_1,
+&amp;&amp; v^{(3)}_4 = d_2
+\end{aligned}
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7330e724">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Member-1-%E2%80%94-Force%E2%80%93Displacement-Relations">Member 1 — Force–Displacement Relations<a class="anchor-link" href="#Member-1-%E2%80%94-Force%E2%80%93Displacement-Relations">¶</a></h3><p>Compatibility (Member 1): $v^{(1)}_1 = v^{(1)}_2 = 0,\; v^{(1)}_3 = d_1,\; v^{(1)}_4 = d_2$</p>
+<p>Element-level global stiffness expression:</p>
+<p>$$
+{\small
+\begin{Bmatrix}
+F^{(1)}_1\\
+F^{(1)}_2\\
+F^{(1)}_3\\
+F^{(1)}_4
+\end{Bmatrix}
+=
+\begin{bmatrix}
+K^{(1)}_{11} &amp; K^{(1)}_{12} &amp; K^{(1)}_{13} &amp; K^{(1)}_{14}\\
+K^{(1)}_{21} &amp; K^{(1)}_{22} &amp; K^{(1)}_{23} &amp; K^{(1)}_{24}\\
+K^{(1)}_{31} &amp; K^{(1)}_{32} &amp; \boxed{K^{(1)}_{33}} &amp; \boxed{K^{(1)}_{34}}\\
+K^{(1)}_{41} &amp; K^{(1)}_{42} &amp; \boxed{K^{(1)}_{43}} &amp; \boxed{K^{(1)}_{44}}
+\end{bmatrix}
+\begin{Bmatrix}
+v^{(1)}_1 = 0\\
+v^{(1)}_2 = 0\\
+v^{(1)}_3 = d_1\\
+v^{(1)}_4 = d_2
+\end{Bmatrix}
+}
+$$</p>
+<p>The forces acting at <strong>end node of member 1</strong> (Global node 1) are:</p>
+<p>$$
+F^{(1)}_3
+=
+K^{(1)}_{33} d_1
++
+K^{(1)}_{34} d_2
+$$</p>
+<p>$$
+F^{(1)}_4
+=
+K^{(1)}_{43} d_1
++
+K^{(1)}_{44} d_2
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8bf412f6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Member-2-%E2%80%94-Force%E2%80%93Displacement-Relations">Member 2 — Force–Displacement Relations<a class="anchor-link" href="#Member-2-%E2%80%94-Force%E2%80%93Displacement-Relations">¶</a></h3><p>Compatibility (Member 2): $v^{(2)}_1 = d_1,\; v^{(2)}_2 = d_2,\; v^{(2)}_3 = v^{(2)}_4 = 0$</p>
+<p>Element-level global stiffness expression:</p>
+<p>$$
+{\small
+\begin{Bmatrix}
+F^{(2)}_1\\
+F^{(2)}_2\\
+F^{(2)}_3\\
+F^{(2)}_4
+\end{Bmatrix}
+=
+\begin{bmatrix}
+\boxed{K^{(2)}_{11}} &amp; \boxed{K^{(2)}_{12}} &amp; K^{(2)}_{13} &amp; K^{(2)}_{14}\\
+\boxed{K^{(2)}_{21}} &amp; \boxed{K^{(2)}_{22}} &amp; K^{(2)}_{23} &amp; K^{(2)}_{24}\\
+K^{(2)}_{31} &amp; K^{(2)}_{32} &amp; K^{(2)}_{33} &amp; K^{(2)}_{34}\\
+K^{(2)}_{41} &amp; K^{(2)}_{42} &amp; K^{(2)}_{43} &amp; K^{(2)}_{44}
+\end{bmatrix}
+\begin{Bmatrix}
+v^{(2)}_1 = d_1\\
+v^{(2)}_2 = d_2\\
+v^{(2)}_3 = 0\\
+v^{(2)}_4 = 0
+\end{Bmatrix}
+}
+$$</p>
+<p>The forces acting at <strong>start node of member 2</strong> (Global node 1) are:</p>
+<p>$$
+F^{(2)}_1
+=
+K^{(2)}_{11} d_1
++
+K^{(2)}_{12} d_2
+$$</p>
+<p>$$
+F^{(2)}_2
+=
+K^{(2)}_{21} d_1
++
+K^{(2)}_{22} d_2
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=acf45251">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Member-3-%E2%80%94-Force%E2%80%93Displacement-Relations">Member 3 — Force–Displacement Relations<a class="anchor-link" href="#Member-3-%E2%80%94-Force%E2%80%93Displacement-Relations">¶</a></h3><p>Compatibility (Member 3): $v^{(3)}_1 = v^{(3)}_2 = 0,\; v^{(3)}_3 = d_1,\; v^{(3)}_4 = d_2$</p>
+<p>Element-level global stiffness expression:</p>
+<p>$$
+{\small
+\begin{Bmatrix}
+F^{(3)}_1\\
+F^{(3)}_2\\
+F^{(3)}_3\\
+F^{(3)}_4
+\end{Bmatrix}
+=
+\begin{bmatrix}
+K^{(3)}_{11} &amp; K^{(3)}_{12} &amp; K^{(3)}_{13} &amp; K^{(3)}_{14}\\
+K^{(3)}_{21} &amp; K^{(3)}_{22} &amp; K^{(3)}_{23} &amp; K^{(3)}_{24}\\
+K^{(3)}_{31} &amp; K^{(3)}_{32} &amp; \boxed{K^{(3)}_{33}} &amp; \boxed{K^{(3)}_{34}}\\
+K^{(3)}_{41} &amp; K^{(3)}_{42} &amp; \boxed{K^{(3)}_{43}} &amp; \boxed{K^{(3)}_{44}}
+\end{bmatrix}
+\begin{Bmatrix}
+v^{(3)}_1 = 0\\
+v^{(3)}_2 = 0\\
+v^{(3)}_3 = d_1\\
+v^{(3)}_4 = d_2
+\end{Bmatrix}
+}
+$$</p>
+<p>The forces acting at <strong>end node of member 3</strong> (Global node 1) are:</p>
+<p>$$
+F^{(3)}_3
+=
+K^{(3)}_{33} d_1
++
+K^{(3)}_{34} d_2
+$$</p>
+<p>$$
+F^{(3)}_4
+=
+K^{(3)}_{43} d_1
++
+K^{(3)}_{44} d_2
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d8b1d385">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Global-Stiffness-Matrix-for-Free-DOFs">Global Stiffness Matrix for Free DOFs<a class="anchor-link" href="#Global-Stiffness-Matrix-for-Free-DOFs">¶</a></h3><p>$$
+\begin{aligned}
+P_1 &amp;= F_3^{(1)} + F_1^{(2)} + F_3^{(3)} \\
+P_2 &amp;= F_4^{(1)} + F_2^{(2)} + F_4^{(3)}
+\end{aligned}
+$$</p>
+<p>Substituting element-level force expressions into the node 1 force equilibrium gives:
+$$
+\begin{aligned}
+P_1 &amp;=
+\bigl(K_{33}^{(1)} + K_{11}^{(2)} + K_{33}^{(3)}\bigr) d_1
++
+\bigl(K_{34}^{(1)} + K_{12}^{(2)} + K_{34}^{(3)}\bigr) d_2 \\[6pt]
+P_2 &amp;=
+\bigl(K_{43}^{(1)} + K_{21}^{(2)} + K_{43}^{(3)}\bigr) d_1
++
+\bigl(K_{44}^{(1)} + K_{22}^{(2)} + K_{44}^{(3)}\bigr) d_2
+\end{aligned}
+$$</p>
+<p>These equations can be written compactly as:
+$$
+\begin{Bmatrix}
+P_1 \\ P_2
+\end{Bmatrix}
+=
+\underbrace{
+\begin{bmatrix}
+K_{33}^{(1)} + K_{11}^{(2)} + K_{33}^{(3)} &amp;
+K_{34}^{(1)} + K_{12}^{(2)} + K_{34}^{(3)} \\[4pt]
+K_{43}^{(1)} + K_{21}^{(2)} + K_{43}^{(3)} &amp;
+K_{44}^{(1)} + K_{22}^{(2)} + K_{44}^{(3)}
+\end{bmatrix}
+}_{\boldsymbol{K}_{\text{s}}}
+\begin{Bmatrix}
+d_1 \\ d_2
+\end{Bmatrix}
+$$</p>
+<p>$$
+\boxed{\;\boldsymbol{P} = \boldsymbol{K}_{\text{s}}\,\boldsymbol{d}\;}
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=778e4c2c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Physical-Interpretation-of-the-Structure-Stiffness-Matrix">Physical Interpretation of the Structure Stiffness Matrix<a class="anchor-link" href="#Physical-Interpretation-of-the-Structure-Stiffness-Matrix">¶</a></h3><ul>
+<li>The <strong>structure stiffness matrix</strong> $\boldsymbol{K}_s$ has the same physical meaning as an element stiffness matrix, but at the <strong>structure (joint) level</strong></li>
+<li>A stiffness coefficient $K_{s,ij}$ represents:<ul>
+<li>The <strong>joint force</strong> at DOF $i$</li>
+<li>Required to cause a <strong>unit displacement</strong> at DOF $j$</li>
+<li>While <strong>all other joint displacements are zero</strong></li>
+</ul>
+</li>
+<li>Equivalently:<ul>
+<li>Each <strong>column</strong> of $\boldsymbol{K}_s$ corresponds to a unit displacement pattern</li>
+<li>The column entries are the <strong>resulting joint forces</strong> needed to enforce that displacement</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2504b42b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Example-%E2%80%94-First-Column-of-$%5Cboldsymbol%7BK%7D_s$">Example — First Column of $\boldsymbol{K}_s$<a class="anchor-link" href="#Example-%E2%80%94-First-Column-of-$%5Cboldsymbol%7BK%7D_s$">¶</a></h3><ul>
+<li>To obtain the <strong>first column</strong> of $\boldsymbol{K}_s$:<ul>
+<li>Impose a <strong>unit displacement</strong> at the first free DOF:
+$$
+d_1 = 1, \qquad d_2 = 0
+$$</li>
+<li>All other joint displacements are held fixed</li>
+</ul>
+</li>
+<li>The resulting joint forces (DOF 1, 2) define the <strong>first column</strong> of $\boldsymbol{K}_s$</li>
+</ul>
+<div style="display:flex; gap:1.5rem; align-items:center;">
+<div style="flex:0.5;">
+<img alt="No description has been provided for this image" src="assets/L2_GlobalManual1.png" style="width:90%;"/>
+</div>
+<div style="flex:0.5;">
+<img alt="No description has been provided for this image" src="assets/L2_GlobalManual2.png" style="width:90%;"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_title">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Part-4-%E2%80%94-Assembling-the-Global-Structure-Stiffness-Matrix">Part 4 — Assembling the Global Structure Stiffness Matrix<a class="anchor-link" href="#Part-4-%E2%80%94-Assembling-the-Global-Structure-Stiffness-Matrix">¶</a></h2><p><strong>Direct Stiffness Method</strong></p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_why_not_manual">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Why-Not-the-Manual-(Equilibrium-+-Compatibility)-Approach?">Why Not the Manual (Equilibrium + Compatibility) Approach?<a class="anchor-link" href="#Why-Not-the-Manual-(Equilibrium-+-Compatibility)-Approach?">¶</a></h3><ul>
+<li>Becomes <strong>tedious</strong> very quickly</li>
+<li>Requires manually tracking:<ul>
+<li>Free vs constrained DOFs</li>
+<li>Compatibility relationships</li>
+</ul>
+</li>
+<li>Hard to implement <strong>programmatically</strong></li>
+<li>Does <strong>not scale</strong> to larger or changing structures</li>
+</ul>
+<p><strong>Key idea:</strong> We want a method that is systematic, scalable, and algorithmic.</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_global_dofs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Reminder-%E2%80%94-Global-Degrees-of-Freedom">Reminder — Global Degrees of Freedom<a class="anchor-link" href="#Reminder-%E2%80%94-Global-Degrees-of-Freedom">¶</a></h3><div style="display:flex; gap:1.5rem; align-items:center;">
+<div style="flex:0.6;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure2_DOFs.png" style="width:100%;"/>
+</div>
+<div style="flex:0.4; font-size:0.95em;">
+<ul>
+<li>Each node contributes two DOFs: $(X,Y)$</li>
+<li>4 nodes → <strong>8 global DOFs</strong></li>
+<li>Consistent numbering is essential for assembly</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_mapping_overview">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Map-Element-DOFs-to-Global-DOFs">Map Element DOFs to Global DOFs<a class="anchor-link" href="#Map-Element-DOFs-to-Global-DOFs">¶</a></h3><img alt="No description has been provided for this image" src="assets/L2_Mapping1.png" style="width:100%; margin-bottom:0.75rem;"/>
+<p>Each element has <strong>4 local DOFs</strong> $(1,2,3,4)$, which must be mapped to the correct <strong>global DOFs</strong> before assembly.</p>
+<p>For this structure:</p>
+<ul>
+<li><strong>Element 1:</strong> local $(1,2,3,4) \;\rightarrow\;$ global $(3,4,1,2)$</li>
+<li><strong>Element 2:</strong> local $(1,2,3,4) \;\rightarrow\;$ global $(1,2,5,6)$</li>
+<li><strong>Element 3:</strong> local $(1,2,3,4) \;\rightarrow\;$ global $(7,8,1,2)$</li>
+</ul>
+<p>This mapping determines <strong>which rows and columns</strong> of the global stiffness matrix each element stiffness contributes to.</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_free_dofs_sum">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Method-1:-Assemble-a-Structure-Matrix-for-the-Free-DOFs">Method 1: Assemble a Structure Matrix for the Free DOFs<a class="anchor-link" href="#Method-1:-Assemble-a-Structure-Matrix-for-the-Free-DOFs">¶</a></h3><img alt="No description has been provided for this image" src="assets/L2_Mapping2.png" style="width:80%; margin-bottom:0.75rem;"/>
+<p>In this example, only <strong>global DOFs 1 and 2</strong> are free; all other DOFs are constrained.</p>
+<ul>
+<li>Contributions from <strong>each element</strong> that map to DOFs 1 and 2 are <strong>summed</strong></li>
+<li>This produces a reduced <strong>structure stiffness matrix</strong> for the free DOFs</li>
+<li>The result matches the stiffness matrix obtained earlier using the <strong>manual equilibrium and compatibility</strong> approach</li>
+</ul>
+<p>For example, the $(1,1)$ entry of the structure stiffness matrix is (matches what we did before):
+$$
+K_{s,11} = K_{33}^{(1)} + K_{11}^{(2)} + K_{33}^{(3)}
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_full_matrix">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Method-2:-Assemble-the-Full-Global-Stiffness-Matrix">Method 2: Assemble the Full Global Stiffness Matrix<a class="anchor-link" href="#Method-2:-Assemble-the-Full-Global-Stiffness-Matrix">¶</a></h3><p>When assembling the <strong>global structure stiffness matrix</strong>, do <strong>not</strong> worry yet about which DOFs are constrained or free.</p>
+<ul>
+<li><strong>Assemble all DOFs first</strong> into a single global matrix</li>
+<li><strong>Apply boundary conditions later</strong> (supports, prescribed displacements)</li>
+<li>This separation is what makes the method <strong>general, systematic, and scalable</strong></li>
+</ul>
+<p>For the structure shown, there are <strong>8 global DOFs</strong>, so <strong>$8\times 8$</strong> stiffness matrix:</p>
+<p>$$
+{\small
+\boldsymbol{K}=
+\begin{bmatrix}
+K_{11} &amp; K_{12} &amp; K_{13} &amp; K_{14} &amp; K_{15} &amp; K_{16} &amp; K_{17} &amp; K_{18} \\
+K_{21} &amp; K_{22} &amp; K_{23} &amp; K_{24} &amp; K_{25} &amp; K_{26} &amp; K_{27} &amp; K_{28} \\
+K_{31} &amp; K_{32} &amp; K_{33} &amp; K_{34} &amp; K_{35} &amp; K_{36} &amp; K_{37} &amp; K_{38} \\
+K_{41} &amp; K_{42} &amp; K_{43} &amp; K_{44} &amp; K_{45} &amp; K_{46} &amp; K_{47} &amp; K_{48} \\
+K_{51} &amp; K_{52} &amp; K_{53} &amp; K_{54} &amp; K_{55} &amp; K_{56} &amp; K_{57} &amp; K_{58} \\
+K_{61} &amp; K_{62} &amp; K_{63} &amp; K_{64} &amp; K_{65} &amp; K_{66} &amp; K_{67} &amp; K_{68} \\
+K_{71} &amp; K_{72} &amp; K_{73} &amp; K_{74} &amp; K_{75} &amp; K_{76} &amp; K_{77} &amp; K_{78} \\
+K_{81} &amp; K_{82} &amp; K_{83} &amp; K_{84} &amp; K_{85} &amp; K_{86} &amp; K_{87} &amp; K_{88}
+\end{bmatrix}
+}
+$$</p>
+<p>Each entry $K_{ij}$ represents the <strong>combined stiffness contribution</strong> from all elements that connect global DOF $j$ to global DOF $i$.</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_element_mappings">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Element-1-%E2%80%94-Contribution-to-Global-Stiffness-Matrix">Element 1 — Contribution to Global Stiffness Matrix<a class="anchor-link" href="#Element-1-%E2%80%94-Contribution-to-Global-Stiffness-Matrix">¶</a></h3><p><strong>Local → Global DOF mapping (Element 1):</strong>
+$$
+(1,2,3,4) \;\rightarrow\; (3,4,1,2)
+$$</p>
+<img alt="No description has been provided for this image" src="assets/L2_Mapping_ele1.png" style="width:60%; margin-bottom:0.75rem;"/>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8b3d077d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Element-2-%E2%80%94-Contribution-to-Global-Stiffness-Matrix">Element 2 — Contribution to Global Stiffness Matrix<a class="anchor-link" href="#Element-2-%E2%80%94-Contribution-to-Global-Stiffness-Matrix">¶</a></h3><p><strong>Local → Global DOF mapping (Element 2):</strong>
+$$
+(1,2,3,4) \;\rightarrow\; (1,2,5,6)
+$$</p>
+<img alt="No description has been provided for this image" src="assets/L2_Mapping_ele2.png" style="width:60%; margin-bottom:0.75rem;"/>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=85289b6a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Element-3-%E2%80%94-Contribution-to-Global-Stiffness-Matrix">Element 3 — Contribution to Global Stiffness Matrix<a class="anchor-link" href="#Element-3-%E2%80%94-Contribution-to-Global-Stiffness-Matrix">¶</a></h3><p><strong>Local → Global DOF mapping (Element 3):</strong>
+$$
+(1,2,3,4) \;\rightarrow\; (7,8,1,2)
+$$</p>
+<img alt="No description has been provided for this image" src="assets/L2_Mapping_ele3.png" style="width:60%; margin-bottom:0.75rem;"/>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_final_matrix">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Final-Global-Structure-Stiffness-Matrix">Final Global Structure Stiffness Matrix<a class="anchor-link" href="#Final-Global-Structure-Stiffness-Matrix">¶</a></h3><ul>
+<li>Each $K_{ij}$ may include <strong>multiple element contributions</strong></li>
+<li>The matrix is <strong>symmetric</strong></li>
+<li>Diagonal terms, $K_{ii}$, must be non-zero and positive for stability</li>
+</ul>
+<p>$$
+\boldsymbol{K}=
+\begin{bmatrix}
+K_{11} &amp; K_{12} &amp; K_{13} &amp; K_{14} &amp; K_{15} &amp; K_{16} &amp; K_{17} &amp; K_{18} \\
+K_{21} &amp; K_{22} &amp; K_{23} &amp; K_{24} &amp; K_{25} &amp; K_{26} &amp; K_{27} &amp; K_{28} \\
+K_{31} &amp; K_{32} &amp; K_{33} &amp; K_{34} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+K_{41} &amp; K_{42} &amp; K_{43} &amp; K_{44} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+K_{51} &amp; K_{52} &amp; 0 &amp; 0 &amp; K_{55} &amp; K_{56} &amp; 0 &amp; 0 \\
+K_{61} &amp; K_{62} &amp; 0 &amp; 0 &amp; K_{65} &amp; K_{66} &amp; 0 &amp; 0 \\
+K_{71} &amp; K_{72} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; K_{77} &amp; K_{78} \\
+K_{81} &amp; K_{82} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; K_{87} &amp; K_{88}
+\end{bmatrix}
+$$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec4_zero_entries">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Interpreting-Zeros-in-the-Stiffness-Matrix">Interpreting Zeros in the Stiffness Matrix<a class="anchor-link" href="#Interpreting-Zeros-in-the-Stiffness-Matrix">¶</a></h3><div style="display:flex; gap:1.5rem; align-items:center;">
+<div style="flex:0.6;">
+<img alt="No description has been provided for this image" src="assets/L2_Structure2_DOFs.png" style="width:100%;"/>
+</div>
+<div style="flex:0.4; font-size:0.95em;">
+<ul>
+<li>Zero entry → no stiffness coupling</li>
+<li>Example: $K_{37} = 0$</li>
+<li>DOF 3 and DOF 7 share no connecting element</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -8100,22 +8631,108 @@ constrained DOFs</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-6-%E2%80%94-Constraints-and-Supports-(Why-$%5BK%5D$-Was-Singular)">Part 6 — Constraints and Supports (Why $[K]$ Was Singular)<a class="anchor-link" href="#Part-6-%E2%80%94-Constraints-and-Supports-(Why-$%5BK%5D$-Was-Singular)">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-constraints and supports, show the "instability" with no supports as an example (from last section),
-singular matrix etc, have to add constraints, how? dont actually need to worry, just add them in as normal and later
-you deal with --&gt; partitioning</p>
-</blockquote>
-<p>Boundary conditions specify known displacements:</p>
+<h2 id="Part-5-%E2%80%94-Constraints-and-Supports">Part 5 — Constraints and Supports<a class="anchor-link" href="#Part-5-%E2%80%94-Constraints-and-Supports">¶</a></h2>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b0434282">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Try-Inverting">Try Inverting<a class="anchor-link" href="#Try-Inverting">¶</a></h3><p>You might think: <em>we have</em> $\boldsymbol{K}$, <em>so we can just solve</em>
+$$
+\boldsymbol{K}\,\boldsymbol{u}=\boldsymbol{f}
+$$
+and we’re done.</p>
+<p>But if you try to compute $\boldsymbol{u}=\boldsymbol{K}^{-1}\boldsymbol{f}$ <strong>right now</strong>, you’ll get an error:</p>
 <ul>
-<li>e.g., a pin support might enforce $u_x=0$ and $u_y=0$</li>
-<li>a roller might enforce one component only</li>
+<li>$\boldsymbol{K}$ is <strong>singular</strong> (not invertible)</li>
+<li>the structure still has <strong>rigid-body motion</strong> because we haven’t applied supports / boundary conditions yet</li>
 </ul>
-<p>Physical meaning:</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59fb50a6">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Why-do-we-get-a-singular-stiffness-matrix?">Why do we get a singular stiffness matrix?<a class="anchor-link" href="#Why-do-we-get-a-singular-stiffness-matrix?">¶</a></h3><p>When the global stiffness matrix $\mathbf{K}$ is assembled <strong>without supports</strong>, the structure is free to undergo <strong>rigid-body motion</strong>. These motions do not stretch or compress members and therefore produce <strong>no internal strain energy</strong>.</p>
+<p>Mathematically, an unconstrained structure admits non-zero displacement vectors $\mathbf{u} \neq \mathbf{0}$ such that
+$$
+\mathbf{K}\mathbf{u} = \mathbf{0}
+$$
+These displacement patterns are <strong>rigid-body (zero-energy) modes</strong>, meaning $\mathbf{K}$ has a <strong>non-trivial nullspace</strong> and is therefore <strong>singular</strong>.</p>
+<p><strong>Bottom line:</strong> without supports, $\mathbf{K}$ cannot uniquely map loads to displacements.</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec6-constraints-example-instability">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="What-does-this-mean-in-practice?">What does this mean in practice?<a class="anchor-link" href="#What-does-this-mean-in-practice?">¶</a></h3><p>Consider the assembled $8 \times 8$ global stiffness matrix $\mathbf{K}$. At this stage, it contains <strong>no information about how the structure is attached to the ground</strong>.</p>
+<p>As a result, the structure can move without inducing member deformation:</p>
 <ul>
-<li>Rigid-body modes exist without constraints</li>
-<li>Some displacement patterns produce no strain energy</li>
+<li><strong>Rigid translation in $X$</strong></li>
+<li><strong>Rigid translation in $Y$</strong></li>
+<li><strong>Rigid-body rotation</strong> (geometry-dependent)</li>
 </ul>
+<p>These motions are <strong>rigid-body modes</strong>, not structural deformations.</p>
+<p>Because rigid-body modes produce zero internal force, $\mathbf{K}$ cannot uniquely map applied loads to displacements. <strong>Supports (boundary conditions)</strong> remove these modes and render $\mathbf{K}$ invertible.</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec6-constraints-boundary-conditions">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Boundary-conditions:-how-supports-enter-the-model">Boundary conditions: how supports enter the model<a class="anchor-link" href="#Boundary-conditions:-how-supports-enter-the-model">¶</a></h3><p>Supports and constraints are enforced by specifying <strong>known displacements</strong> (a.k.a. prescribed DOFs).</p>
+<p><strong>Common idealized supports (2D truss):</strong></p>
+<ul>
+<li><strong>Pin support</strong> at node $i$: Prescribes both translations: $u_{ix}=0$ and $u_{iy}=0$</li>
+<li><strong>Roller support</strong> at node $i$: Prescribes one translation and allows the other:</li>
+</ul>
+<p><strong>Prescribed displacement (settlement / actuation):</strong></p>
+<ul>
+<li>You can prescribe a non-zero value, e.g., $u_{iy} = -2\text{ mm}$ at a support.</li>
+</ul>
+<p>Why this fixes singularity:</p>
+<ul>
+<li>Constraints remove rigid-body modes by preventing global translations/rotations.</li>
+<li>After constraints, the remaining free DOFs correspond to true structural deformation.</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec6-constraints-what-we-do-next">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="What-we-do-next-(workflow)">What we do next (workflow)<a class="anchor-link" href="#What-we-do-next-(workflow)">¶</a></h3><p>We do <strong>not</strong> modify the element --&gt; global matrix formulation to handle supports.</p>
+<p>Instead, the Direct Stiffness Method proceeds like this:</p>
+<ol>
+<li>Assemble the <strong>full</strong> global matrix $\boldsymbol{K}$ and global load vector $\boldsymbol{F}$</li>
+<li>Identify which DOFs are <strong>free</strong> vs <strong>restrained</strong></li>
+<li>Enforce boundary conditions by <strong>partitioning</strong> (or equivalently, by eliminating restrained DOFs)</li>
+<li>Solve only for the unknown (free) displacements</li>
+<li>Recover reactions at restrained DOFs</li>
+</ol>
+<p>So supports are handled cleanly at the <strong>system equation</strong> level — via partitioning (next section).</p>
 </div>
 </div>
 </div>
@@ -8126,28 +8743,129 @@ you deal with --&gt; partitioning</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-7-%E2%80%94-Partitioning-the-Matrix-(Free-vs-Restrained)">Part 7 — Partitioning the Matrix (Free vs Restrained)<a class="anchor-link" href="#Part-7-%E2%80%94-Partitioning-the-Matrix-(Free-vs-Restrained)">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-partitioning the matrix, into fixed and free</p>
-</blockquote>
-<p>Reorder DOFs into:</p>
+<h2 id="Part-5-%E2%80%94-Partitioning-the-Matrix-(Free-vs-Restrained)">Part 5 — Partitioning the Matrix (Free vs Restrained)<a class="anchor-link" href="#Part-5-%E2%80%94-Partitioning-the-Matrix-(Free-vs-Restrained)">¶</a></h2>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=115cdd6f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Core-idea">Core idea<a class="anchor-link" href="#Core-idea">¶</a></h3><p>Separate DOFs into:</p>
 <ul>
-<li>free DOFs: $f$</li>
-<li>restrained DOFs: $r$</li>
+<li><strong>Free DOFs</strong> $f$: unknown displacements (to solve for)</li>
+<li><strong>Restrained DOFs</strong> $r$: prescribed displacements (known from supports/constraints)</li>
 </ul>
-<p>$$\begin{bmatrix}
-K_{ff} &amp; K_{fr}\\
-K_{rf} &amp; K_{rr}
+<p>Reorder the global displacement vector so all free DOFs come first:
+$$
+\boldsymbol{u}=
+\begin{bmatrix}
+\boldsymbol{u}_f\\
+\boldsymbol{u}_r
+\end{bmatrix},
+\qquad
+\boldsymbol{F}=
+\begin{bmatrix}
+\boldsymbol{F}_f\\
+\boldsymbol{F}_r
+\end{bmatrix}
+$$</p>
+<p>Then the global system becomes a block system:
+$$
+\begin{bmatrix}
+\boldsymbol{K}_{ff} &amp; \boldsymbol{K}_{fr}\\
+\boldsymbol{K}_{rf} &amp; \boldsymbol{K}_{rr}
 \end{bmatrix}
 \begin{bmatrix}
-u_f\\
-u_r
+\boldsymbol{u}_f\\
+\boldsymbol{u}_r
 \end{bmatrix}
 =
 \begin{bmatrix}
-F_f\\
-F_r
-\end{bmatrix}$$</p>
+\boldsymbol{F}_f\\
+\boldsymbol{F}_r
+\end{bmatrix}
+$$</p>
+<p>Interpretation:</p>
+<ul>
+<li>$\boldsymbol{K}_{ff}$ couples free DOFs to free DOFs</li>
+<li>$\boldsymbol{K}_{fr}$ couples restrained DOFs into the free equations</li>
+<li>$\boldsymbol{K}_{rf}$ and $\boldsymbol{K}_{rr}$ are used to recover reactions</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec7-partitioning-what-is-free-vs-restrained">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="How-do-we-identify-free-vs-restrained-DOFs?">How do we identify free vs restrained DOFs?<a class="anchor-link" href="#How-do-we-identify-free-vs-restrained-DOFs?">¶</a></h3><p>For each node in a 2D truss, we typically have two DOFs:</p>
+<ul>
+<li>$u_x$ (global $X$ translation)</li>
+<li>$u_y$ (global $Y$ translation)</li>
+</ul>
+<p>A DOF is <strong>restrained</strong> if its displacement is prescribed:</p>
+<ul>
+<li>Pin support at node $i$: restrains both $u_{ix}$ and $u_{iy}$</li>
+<li>Roller at node $i$ (vertical): restrains $u_{iy}$ only</li>
+<li>Any imposed displacement: restrains that DOF to a specified value</li>
+</ul>
+<p>A DOF is <strong>free</strong> if its displacement is unknown and must be solved from equilibrium.</p>
+<p>In implementation, you typically store:</p>
+<ul>
+<li>a list of free DOF indices, e.g. <code>free = [ ... ]</code></li>
+<li>a list of restrained DOF indices, e.g. <code>rest = [ ... ]</code></li>
+</ul>
+<p>Then you form submatrices by indexing into $\boldsymbol{K}$.</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec7-partitioning-submatrices-meaning">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="What-the-submatrices-mean-(physical-interpretation)">What the submatrices mean (physical interpretation)<a class="anchor-link" href="#What-the-submatrices-mean-(physical-interpretation)">¶</a></h3><p>Start from the full equilibrium statement:
+$$\boldsymbol{K}\boldsymbol{u} = \boldsymbol{F}$$</p>
+<p>After partitioning, the <strong>top block row</strong> is:
+$$\boldsymbol{K}_{ff}\boldsymbol{u}_f + \boldsymbol{K}_{fr}\boldsymbol{u}_r = \boldsymbol{F}_f$$</p>
+<p>This is the equation we solve for unknown displacements $\boldsymbol{u}_f$.</p>
+<p>The <strong>bottom block row</strong> is:
+$$\boldsymbol{K}_{rf}\boldsymbol{u}_f + \boldsymbol{K}_{rr}\boldsymbol{u}_r = \boldsymbol{F}_r$$</p>
+<p>This equation is used to compute <strong>support reactions</strong> once $\boldsymbol{u}_f$ is known.</p>
+<p>Important notes:</p>
+<ul>
+<li>$\boldsymbol{F}_r$ are not usually prescribed loads — they are typically <strong>unknown reactions</strong></li>
+<li>$\boldsymbol{u}_r$ are known (often zero), so they act like a known input</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec7-partitioning-nonzero-prescribed">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Non-zero-prescribed-displacements-(settlement-/-actuation)">Non-zero prescribed displacements (settlement / actuation)<a class="anchor-link" href="#Non-zero-prescribed-displacements-(settlement-/-actuation)">¶</a></h3><p>Partitioning also handles cases where restrained displacements are not zero.</p>
+<p>Example:</p>
+<ul>
+<li>A support settles by $\delta$: $u_{iy} = -\delta$ is prescribed</li>
+</ul>
+<p>The free-DOF equation is still:
+$$\boldsymbol{K}_{ff}\boldsymbol{u}_f + \boldsymbol{K}_{fr}\boldsymbol{u}_r = \boldsymbol{F}_f$$</p>
+<p>Rearranged into a solve-ready form:
+$$\boldsymbol{K}_{ff}\boldsymbol{u}_f = \boldsymbol{F}_f - \boldsymbol{K}_{fr}\boldsymbol{u}_r$$</p>
+<p>So, prescribed support motion enters as an <em>effective load term</em> on the right-hand side.</p>
 </div>
 </div>
 </div>
@@ -8158,34 +8876,101 @@ F_r
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-8-%E2%80%94-Solving-for-Global-Displacements">Part 8 — Solving for Global Displacements<a class="anchor-link" href="#Part-8-%E2%80%94-Solving-for-Global-Displacements">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-solving everythign, finding global displacements, matrix algebra here, with partitioned matrix, page 41 of
-McGuire shows this well</p>
-</blockquote>
-<p>Typically $u_r$ is known (often zeros).</p>
-<p>Solve the free subsystem:
-$$u_f = K_{ff}^{-1}(F_f - K_{fr}u_r)$$</p>
-<p>Then recover reactions:
-$$F_r = K_{rf}u_f + K_{rr}u_r$$</p>
+<h2 id="Part-6-%E2%80%94-Solving-for-Global-Displacements-and-Forces">Part 6 — Solving for Global Displacements and Forces<a class="anchor-link" href="#Part-6-%E2%80%94-Solving-for-Global-Displacements-and-Forces">¶</a></h2><h3 id="Solve-the-partitioned-system">Solve the partitioned system<a class="anchor-link" href="#Solve-the-partitioned-system">¶</a></h3><p>Start from the partitioned equilibrium equations:
+$$
+\boldsymbol{K}_{ff}\boldsymbol{u}_f + \boldsymbol{K}_{fr}\boldsymbol{u}_r = \boldsymbol{F}_f
+$$
+$$
+\boldsymbol{K}_{rf}\boldsymbol{u}_f + \boldsymbol{K}_{rr}\boldsymbol{u}_r = \boldsymbol{F}_r
+$$</p>
+<p>Typically, $\boldsymbol{u}_r$ is known (often $\boldsymbol{0}$). Solve for the unknown displacements:
+$$
+\boxed{\;\boldsymbol{u}_f = \boldsymbol{K}_{ff}^{-1}\Bigl(\boldsymbol{F}_f - \boldsymbol{K}_{fr}\boldsymbol{u}_r\Bigr)\;}
+$$</p>
+<p>Then compute reactions at the supports (restrained DOFs):
+$$
+\boxed{\;\boldsymbol{F}_r = \boldsymbol{K}_{rf}\boldsymbol{u}_f + \boldsymbol{K}_{rr}\boldsymbol{u}_r\;}
+$$</p>
+<p>Interpretation:</p>
+<ul>
+<li>$\boldsymbol{u}_f$ gives the structural deformation</li>
+<li>$\boldsymbol{F}_r$ gives the support reactions required to enforce the boundary conditions</li>
+</ul>
 </div>
 </div>
 </div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec9-worked-with-supports">
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec8-solve-algorithm">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-9-%E2%80%94-Worked-Example:-Second-Attempt-(With-Supports)">Part 9 — Worked Example: Second Attempt (With Supports)<a class="anchor-link" href="#Part-9-%E2%80%94-Worked-Example:-Second-Attempt-(With-Supports)">¶</a></h2><blockquote>
-<p><strong>Draft note (delete later):</strong>
-now solve McGuire 3.2, same structure as 3.1 but now with supports</p>
-</blockquote>
-<p>Now apply supports and solve for:</p>
+<h3 id="Algorithmic-view-(what-you-do-in-code)">Algorithmic view (what you do in code)<a class="anchor-link" href="#Algorithmic-view-(what-you-do-in-code)">¶</a></h3><p>Given:</p>
 <ul>
-<li>global displacements $\{u\}$</li>
-<li>reactions at restrained DOFs</li>
+<li>full global stiffness matrix $\boldsymbol{K}$</li>
+<li>full global load vector $\boldsymbol{F}$</li>
+<li>sets of indices <code>free</code> and <code>rest</code></li>
+<li>prescribed displacements $\boldsymbol{u}_r$ (often zeros)</li>
+</ul>
+<p>Steps:</p>
+<ol>
+<li>Extract submatrices:<ul>
+<li>$\boldsymbol{K}_{ff} = \boldsymbol{K}[f,f]$</li>
+<li>$\boldsymbol{K}_{fr} = \boldsymbol{K}[f,r]$</li>
+<li>$\boldsymbol{K}_{rf} = \boldsymbol{K}[r,f]$</li>
+<li>$\boldsymbol{K}_{rr} = \boldsymbol{K}[r,r]$</li>
+</ul>
+</li>
+<li>Extract subvectors:<ul>
+<li>$\boldsymbol{F}_f = \boldsymbol{F}[f]$</li>
+<li>$\boldsymbol{F}_r = \boldsymbol{F}[r]$ (usually unknown reactions; can initialize as zeros)</li>
+</ul>
+</li>
+<li>Solve:
+$$\boldsymbol{u}_f = \boldsymbol{K}_{ff}^{-1}(\boldsymbol{F}_f - \boldsymbol{K}_{fr}\boldsymbol{u}_r)$$</li>
+<li>Recover reactions:
+$$\boldsymbol{F}_r = \boldsymbol{K}_{rf}\boldsymbol{u}_f + \boldsymbol{K}_{rr}\boldsymbol{u}_r$$</li>
+</ol>
+<p>Practical note:</p>
+<ul>
+<li>In numerical computing, you rarely compute $\boldsymbol{K}_{ff}^{-1}$ explicitly.</li>
+<li>You solve $\boldsymbol{K}_{ff}\boldsymbol{u}_f = \boldsymbol{b}$ using a linear solver.</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec8-solve-checks">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Sanity-checks-after-solving">Sanity checks after solving<a class="anchor-link" href="#Sanity-checks-after-solving">¶</a></h3><p><strong>1) Dimensions and indexing</strong></p>
+<ul>
+<li>$\boldsymbol{K}_{ff}$ should be $n_f\times n_f$</li>
+<li>$\boldsymbol{u}_f$ should be length $n_f$</li>
+</ul>
+<p><strong>2) Stability</strong></p>
+<ul>
+<li>If the structure is properly constrained, $\boldsymbol{K}_{ff}$ should be non-singular</li>
+<li>If it is still singular, you likely have:<ul>
+<li>insufficient supports (rigid-body mode remains), or</li>
+<li>a disconnected node / element connectivity error</li>
+</ul>
+</li>
+</ul>
+<p><strong>3) Equilibrium</strong></p>
+<ul>
+<li>Reconstruct the full displacement vector $\boldsymbol{u}$ by inserting $\boldsymbol{u}_f$ and $\boldsymbol{u}_r$</li>
+<li>Compute $\boldsymbol{K}\boldsymbol{u}$ and compare to $\boldsymbol{F}$</li>
+<li>Differences should be near numerical tolerance (floating point error)</li>
+</ul>
+<p><strong>4) Reactions</strong></p>
+<ul>
+<li>Check reaction directions and magnitudes against intuition</li>
+<li>Sum of reactions should balance applied loads (global equilibrium)</li>
 </ul>
 </div>
 </div>
@@ -8197,7 +8982,7 @@ now solve McGuire 3.2, same structure as 3.1 but now with supports</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-10-%E2%80%94-Recover-Element-Forces-(Back-to-Local)">Part 10 — Recover Element Forces (Back to Local)<a class="anchor-link" href="#Part-10-%E2%80%94-Recover-Element-Forces-(Back-to-Local)">¶</a></h2><blockquote>
+<h2 id="Part-7-%E2%80%94-Recover-Element-Forces-(Back-to-Local)">Part 7 — Recover Element Forces (Back to Local)<a class="anchor-link" href="#Part-7-%E2%80%94-Recover-Element-Forces-(Back-to-Local)">¶</a></h2><blockquote>
 <p><strong>Draft note (delete later):</strong>
 now go back to local, for element forces etc. Section 3.8 Kassimalu explains, in the step by step guide</p>
 </blockquote>
@@ -8218,7 +9003,7 @@ now go back to local, for element forces etc. Section 3.8 Kassimalu explains, in
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-11-%E2%80%94-DSM-Summary-(Explicit-Steps)">Part 11 — DSM Summary (Explicit Steps)<a class="anchor-link" href="#Part-11-%E2%80%94-DSM-Summary-(Explicit-Steps)">¶</a></h2><blockquote>
+<h2 id="Part-8-%E2%80%94-DSM-Summary-(Explicit-Steps)">Part 8 — DSM Summary (Explicit Steps)<a class="anchor-link" href="#Part-8-%E2%80%94-DSM-Summary-(Explicit-Steps)">¶</a></h2><blockquote>
 <p><strong>Draft note (delete later):</strong>
 the direct stiffness method summary (what we just did), steps to solve, explicit steps</p>
 </blockquote>
@@ -8247,7 +9032,7 @@ the direct stiffness method summary (what we just did), steps to solve, explicit
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-12-%E2%80%94-Features-of-the-Stiffness-Matrix-+-Indeterminacy">Part 12 — Features of the Stiffness Matrix + Indeterminacy<a class="anchor-link" href="#Part-12-%E2%80%94-Features-of-the-Stiffness-Matrix-+-Indeterminacy">¶</a></h2><blockquote>
+<h2 id="Part-9-%E2%80%94-Features-of-the-Stiffness-Matrix-+-Indeterminacy">Part 9 — Features of the Stiffness Matrix + Indeterminacy<a class="anchor-link" href="#Part-9-%E2%80%94-Features-of-the-Stiffness-Matrix-+-Indeterminacy">¶</a></h2><blockquote>
 <p><strong>Draft note (delete later):</strong>
 some features of the stiffness matrix + indeterminacy (mcGuire 3.3, 3.4)</p>
 </blockquote>
@@ -8265,12 +9050,31 @@ some features of the stiffness matrix + indeterminacy (mcGuire 3.3, 3.4)</p>
 </div>
 </div>
 </div>
-</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=code-stub-dsm">
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=sec9-worked-with-supports">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Part-10-%E2%80%94-Worked-Example:-Second-Attempt-(With-Supports)">Part 10 — Worked Example: Second Attempt (With Supports)<a class="anchor-link" href="#Part-10-%E2%80%94-Worked-Example:-Second-Attempt-(With-Supports)">¶</a></h2><blockquote>
+<p><strong>Draft note (delete later):</strong>
+now solve McGuire 3.2, same structure as 3.1 but now with supports</p>
+</blockquote>
+<p>Now apply supports and solve for:</p>
+<ul>
+<li>global displacements $\{u\}$</li>
+<li>reactions at restrained DOFs</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=code-stub-dsm">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># (Optional) DSM code scaffold stub</span>
@@ -8291,18 +9095,6 @@ some features of the stiffness matrix + indeterminacy (mcGuire 3.3, 3.4)</p>
 
 <span class="n">K</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">u</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(None, None, None)</pre>
 </div>
 </div>
 </div>

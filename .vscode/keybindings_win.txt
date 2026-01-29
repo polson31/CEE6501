@@ -18,5 +18,16 @@
     "command": "workbench.action.tasks.runTask",
     "args": "Slides: Export2PDF (current notebook)",
     "when": "notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+alt+r",
+    "command": "workbench.action.openWith",
+    "args": {
+      "viewId": "default",
+      "options": {
+        "openInNewGroup": false
+      }
+    },
+    "when": "notebookEditorFocused"
   }
 ]
