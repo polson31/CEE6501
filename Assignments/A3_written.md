@@ -12,8 +12,9 @@
 
 This is a **written assignment**, not a coding assignment.
 
-- Complete the assignment **by hand**
+- Complete the assignment **by hand or typed up**
 - You may write:
+  - in a markdown file
   - on paper
   - on a tablet
   - using a stylus or digital note-taking app
@@ -35,18 +36,11 @@ You may use **any format you prefer**, but your submission \*_must be neat and l
 - [ ] All questions answered
 - [ ] File uploaded successfully to Canvas
 
-## Assignment Information
+### 🤝 Collaboration / AI tools
 
-TBD
+You may discuss concepts with classmates and you may use AI tools to help you learn, but **your submitted work must be
+written by you and you must understand it**. If you used outside help, add a short note in the final reflection cell.
 
-### Problem 1
+---
 
-...
-
-### Problem 2
-
-...
-
-### Problem 3
-
-...
+### Question 1 —
