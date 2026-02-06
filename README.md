@@ -126,7 +126,7 @@ the local $4 \times 4$ element stiffness form (local-only; not yet transformed).
 - 📄 **Slides (PDF):** [L3_1_AxialElement.pdf](Lectures/L3/L3_1_AxialElement.pdf)
 - 📓 **Notebook:** [L3_1_AxialElement.ipynb](Lectures/L3/L3_1_AxialElement.ipynb)
 
-#### Part 2 — The Direct Stiffness Method (DSM) for Trusses (Part 1)
+#### Part 2 — The Direct Stiffness Method (DSM) for Trusses I
 
 This lecture begins to develop the full DSM workflow for trusses: local-to-global transformations using direction
 cosines, deriving the global element stiffness $[k]_g = [T]^T [k'] [T]$, and manually assemblying the global stiffness
@@ -167,7 +167,7 @@ McGuire – Chapter 3, §3.2–3.4 and §11.4 (sparseness)
 
 ### 📖 Lectures
 
-#### Part 1 — The Direct Stiffness Method (DSM) for Trusses (Part 2)
+#### Part 1 — The Direct Stiffness Method (DSM) for Trusses II
 
 This lecture completes the DSM truss workflow introduced in Week 3. We briefly review the manual construction of the
 global stiffness matrix based on compatibility and force equilibrium, and then formalize the Direct Stiffness Method:
@@ -190,7 +190,7 @@ implementing each DSM step explicitly and validating intermediate results along 
 - 📄 **Slides (PDF):** [L4_2_Implementation.pdf](Lectures/L4/L4_2_Implementation.pdf)
 - 📓 **Notebook:** [L4_2_Implementation.ipynb](Lectures/L4/L4_2_Implementation.ipynb)
 
-#### Part 3 — Extra Topics for the DSM for Planar Trusses in Python
+#### Part 3 — Extra Topics for the DSM for Planar Trusses
 
 This lecture explores computational and modeling extensions to the DSM, including **sparsity and bandwidth of the
 stiffness matrix**, the impact of DOF ordering on solver performance, and a brief outlook on extending the DSM framework
