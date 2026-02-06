@@ -190,13 +190,22 @@ implementing each DSM step explicitly and validating intermediate results along 
 - 📄 **Slides (PDF):** [L4_2_Implementation.pdf](Lectures/L4/L4_2_Implementation.pdf)
 - 📓 **Notebook:** [L4_2_Implementation.ipynb](Lectures/L4/L4_2_Implementation.ipynb)
 
+#### Part 3 — Extra Topics for the DSM for Planar Trusses in Python
+
+This lecture explores computational and modeling extensions to the DSM, including **sparsity and bandwidth of the
+stiffness matrix**, the impact of DOF ordering on solver performance, and a brief outlook on extending the DSM framework
+to **3D truss systems**.
+
+- 🌐 **Slides (HTML):** [L4_3_ExtraTopics.slides.html](Lectures/L4/L4_3_ExtraTopics.slides.html)
+- 📄 **Slides (PDF):** [L4_3_ExtraTopics.pdf](Lectures/L4/L4_3_ExtraTopics.pdf)
+- 📓 **Notebook:** [L4_3_ExtraTopics.ipynb](Lectures/L4/L4_3_ExtraTopics.ipynb)
+
 ### Extra In-Class Code
 
-None
+- [banded_demo.ipynb](Code/L4/banded_demo.ipynb)
+  [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Code/L4/banded_demo.ipynb)
 
 ### 📝 Assignments
-
-See Lecture 1 for how to complete assignments guide.
 
 - ✍️ **Written Assignment:** [A4_written.md](Assignments/A4_written.md)
 - 💻 **Coding Assignment:**

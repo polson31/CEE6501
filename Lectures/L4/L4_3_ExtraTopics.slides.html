@@ -7456,10 +7456,9 @@ main {
 <ul>
 <li>Explain why global stiffness matrices for trusses are typically <strong>sparse</strong></li>
 <li>Define <strong>half-bandwidth</strong> and relate it to storage and computational cost</li>
-<li>Show how <strong>node numbering / DOF ordering</strong> changes bandwidth without changing physics</li>
-<li>Demonstrate (with timing) why exploiting structure can accelerate linear solves</li>
+<li>Show how <strong>node numbering</strong> changes bandwidth without changing physics</li>
 <li>Extend the Direct Stiffness Method (DSM) from 2D to <strong>3D trusses</strong></li>
-<li>Write the <strong>3D truss element</strong> stiffness in local form, the 3D transformation matrix, and the assembled global element stiffness</li>
+<li>Write the <strong>3D truss element</strong> stiffness in local and global form</li>
 <li>State the <strong>support constraints</strong> needed to prevent rigid body motion in 3D</li>
 </ul>
 </div>
@@ -7473,11 +7472,8 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Agenda">Agenda<a class="anchor-link" href="#Agenda">¶</a></h2><ol>
-<li>Sparsity in the global stiffness matrix</li>
-<li>Half-bandwidth and why node numbering matters</li>
-<li>A timing demo: same size, different bandwidth</li>
+<li>Sparsity and bandwidth in the global stiffness matrix</li>
 <li>DSM in 3D: DOFs, rotations, and supports</li>
-<li>3D truss element matrices: $\mathbf{k}_{local}$, $\mathbf{T}$, $\mathbf{k}_{global}$</li>
 </ol>
 </div>
 </div>
@@ -7489,10 +7485,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-1-%E2%80%94-Sparsity-and-Bandwidth">Part 1 — Sparsity and Bandwidth<a class="anchor-link" href="#Part-1-%E2%80%94-Sparsity-and-Bandwidth">¶</a></h2><blockquote>
-<p>In large structural systems, performance depends not only on <em>how many</em> nonzeros we have,
-but on <em>where</em> they appear in the matrix.</p>
-</blockquote>
+<h2 id="Part-1-%E2%80%94-Sparsity-and-Bandwidth">Part 1 — Sparsity and Bandwidth<a class="anchor-link" href="#Part-1-%E2%80%94-Sparsity-and-Bandwidth">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7503,8 +7496,8 @@ but on <em>where</em> they appear in the matrix.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Sparsity-(local-physical-connectivity)">Sparsity (local physical connectivity)<a class="anchor-link" href="#Sparsity-(local-physical-connectivity)">¶</a></h3><p>In truss and frame models, each node connects to only a small number of neighboring elements.
-As a result, each equilibrium equation involves only a few degrees of freedom.</p>
+<h3 id="Sparsity-(local-physical-connectivity)">Sparsity (local physical connectivity)<a class="anchor-link" href="#Sparsity-(local-physical-connectivity)">¶</a></h3><p>In truss and frame models, each node connects to only a small number of neighboring elements.</p>
+<p>As a result, each equilibrium equation involves only a few degrees of freedom. Entries in the stiffness matrix only exist where DOFs are linked by members.</p>
 <p>This locality leads to a <strong>sparse</strong> global stiffness matrix $\mathbf{K}$:
 most entries are exactly zero.</p>
 <ul>
@@ -7841,6 +7834,16 @@ transformation well-defined.</p>
 \begin{bmatrix}0\\1\\0\end{bmatrix}, &amp; |n|\ge 0.9 \quad \text{(bar nearly vertical)}
 \end{cases}
 $$</p>
+</div>
+</div>
+</div>
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=34d9b92b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Define the local unit vectors:</p>
 <p>$$
 \hat{\mathbf e}_{x'} = \begin{bmatrix}l\\m\\n\end{bmatrix}
@@ -7887,15 +7890,7 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6%C3%976-transformation-matrix-$%5Cmathbf-T$">6×6 transformation matrix $\mathbf T$<a class="anchor-link" href="#6%C3%976-transformation-matrix-$%5Cmathbf-T$">¶</a></h2><p>Use global element DOFs ordered as:</p>
-<p>$$
-\mathbf d_{global} = [u_{xi},u_{yi},u_{zi},u_{xj},u_{yj},u_{zj}]^T
-$$</p>
-<p>Use local element DOFs ordered as:</p>
-<p>$$
-\mathbf d_{local} = [u_{x'i},u_{y'i},u_{z'i},u_{x'j},u_{y'j},u_{z'j}]^T
-$$</p>
-<p>Then:</p>
+<h2 id="6%C3%976-transformation-matrix-$%5Cmathbf-T$">6×6 transformation matrix $\mathbf T$<a class="anchor-link" href="#6%C3%976-transformation-matrix-$%5Cmathbf-T$">¶</a></h2><p>Same definition as in 2D:</p>
 <p>$$
 \mathbf d_{local} = \mathbf T\,\mathbf d_{global}
 $$</p>
@@ -7923,39 +7918,13 @@ $$</p>
 </div>
 </div>
 </div></section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=truss3d-connection-to-kglobal">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="How-$%5Cmathbf-T$-connects-to-the-3D-truss-stiffness">How $\mathbf T$ connects to the 3D truss stiffness<a class="anchor-link" href="#How-$%5Cmathbf-T$-connects-to-the-3D-truss-stiffness">¶</a></h3><p>Local (axial-only) stiffness in the element basis:</p>
-<p>$$
-\mathbf k_{local} = \frac{EA}{L}
-\begin{bmatrix}
-1 &amp; 0 &amp; 0 &amp; -1 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
--1 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
-\end{bmatrix}
-$$</p>
-<p>Transformation to global coordinates:</p>
-<p>$$
-\mathbf k_{global} = \mathbf T^T\,\mathbf k_{local}\,\mathbf T
-$$</p>
-</div>
-</div>
-</div>
-</div></section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3d-k-global-6x6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Global-element-stiffness-(6%C3%976)">Global element stiffness (6×6)<a class="anchor-link" href="#Global-element-stiffness-(6%C3%976)">¶</a></h3><p>Compute:</p>
+<h2 id="Global-element-stiffness-(6%C3%976)">Global element stiffness (6×6)<a class="anchor-link" href="#Global-element-stiffness-(6%C3%976)">¶</a></h2><p>Compute:</p>
 <p>$$
 \mathbf{k}_{global} = \mathbf{T}^T\,\mathbf{k}_{local}\,\mathbf{T}
 $$</p>
@@ -7971,23 +7940,23 @@ $$</p>
 -ln  &amp; -mn &amp; -n^2&amp;  ln  &amp;  mn  &amp;  n^2
 \end{bmatrix}
 $$</p>
-<p>This is the standard 3D truss element stiffness in global coordinates. Even though $\mathbf T$ is a full 3D rotation, a truss remains axial-only. That is why the closed-form $\mathbf k_{global}$ only contains $l,m,n$ terms.</p>
+<p>This is the standard 3D truss element stiffness in global coordinates.</p>
+<p>Even though $\mathbf T$ is a full 3D rotation, a truss remains axial-only. That is why the closed-form $\mathbf k_{global}$ only contains $l,m,n$ terms.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1d353756">
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1d353756">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 
 <span class="c1"># --- symbols ---</span>
 <span class="n">EA_L</span> <span class="o">=</span> <span class="mi">1</span>
-
 <span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">"l m n"</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ly</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">"l_y m_y n_y"</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lz</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">nz</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">"l_z m_z n_z"</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -8011,8 +7980,20 @@ $$</p>
     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="p">])</span>
-
-<span class="c1"># --- global stiffness via transformation ---</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e9bb5c23">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># --- global stiffness via transformation ---</span>
 <span class="n">k_global</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">k_local</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
 
 <span class="c1"># Pretty output (in notebook)</span>
@@ -8058,25 +8039,47 @@ $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Supports-and-stability-in-3D">Supports and stability in 3D<a class="anchor-link" href="#Supports-and-stability-in-3D">¶</a></h3><p>A free 3D structure has <strong>3 rigid body translations</strong>.</p>
-<p>For a 3D <strong>truss</strong> model (translations only), you must prevent rigid body motion by constraining
-enough nodal translations.</p>
-<p>Typical sufficient constraint patterns include (examples):</p>
+<h3 id="Supports-and-stability-in-3D">Supports and stability in 3D<a class="anchor-link" href="#Supports-and-stability-in-3D">¶</a></h3><p>A free rigid body in <strong>3D</strong> has <strong>6 rigid body modes</strong>:</p>
 <ul>
-<li>Fix all three translations at one node, and two at a second node, and one at a third node (if geometry allows)</li>
-<li>Or use support conditions consistent with the physical supports (pins/rollers) but ensuring no global drift</li>
+<li>3 translations</li>
+<li>3 rotations</li>
 </ul>
-<p>If constraints are insufficient, $\mathbf{K}$ is singular → the model has a mechanism.</p>
+<p>In a <strong>3D truss model</strong>, only <strong>translations</strong> are included as DOFs, but the structure
+can still undergo rigid body motion unless enough nodal translations are constrained.</p>
+<ul>
+<li>In <strong>2D trusses</strong>, at least <strong>3 independent translational restraints</strong> are required
+to prevent rigid body motion.</li>
+<li>In <strong>3D trusses</strong>, at least <strong>6 independent translational restraints</strong> are required.</li>
+</ul>
+<p>Typical sufficient constraint patterns include:</p>
+<ul>
+<li>Fixing all three translations at one node, two translations at a second node,
+and one translation at a third node (provided the geometry itself is not degenerate)</li>
+</ul>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=end-buffer">
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=93c71909">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="What-does-%E2%80%9Cdegenerate-geometry%E2%80%9D-mean?">What does “degenerate geometry” mean?<a class="anchor-link" href="#What-does-%E2%80%9Cdegenerate-geometry%E2%80%9D-mean?">¶</a></h3><p>A constraint set is <strong>degenerate</strong> if it does <em>not</em> eliminate all rigid body motion,
+even though the <strong>number</strong> of restrained DOFs is sufficient.</p>
+<p>In other words: you may have <em>six</em> restraints in 3D, but their <strong>locations or directions</strong>
+do not block all translations and rotations.</p>
+<p>Examples of degenerate support layouts:</p>
+<ul>
+<li>All constrained nodes lie on a <strong>single line</strong> → rotation about that line remains</li>
+<li>All constrained nodes lie in a <strong>single plane</strong>, allowing rotation out of the plane</li>
+<li>Constrained directions are <strong>collinear</strong> or redundant</li>
+<li>A “one-DOF” restraint acts in a direction that does not resist any remaining rigid motion</li>
+</ul>
+<p><strong>Key idea:</strong><br/>
+It is not just <em>how many</em> DOFs you constrain, but <em>where</em> and <em>in what directions</em>.</p>
+<p>If constraints are degenerate, the global stiffness matrix $\mathbf{K}$ is <strong>singular</strong>.</p>
 </div>
 </div>
 </div>
