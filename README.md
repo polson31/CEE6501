@@ -44,6 +44,15 @@ Configuration of VS Code for Python development, Jupyter notebooks, and course w
 
 **How to Complete Assignements:** [L1_assignments.pdf](Lectures/L1/L1_assignments.pdf)
 
+#### Submission File Naming
+
+Please use the following naming formats:
+
+- **Written:** `StudentLastName_A4_written.pdf`
+- **Coding (Colab / Jupyter):** `StudentLastName_A4_code.ipynb`
+
+#### Assignment Files
+
 - ✍️ **Written Assignment:** [A1_written.md](Assignments/A1_written.md)
 - 💻 **Coding Assignment:**
   [A1_code.ipynb](Assignments/A1_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A1_code.ipynb)
@@ -94,10 +103,17 @@ and solver efficiency for large-scale engineering problems.
 
 ### 📝 Assignments
 
-See Lecture 1 for how to complete assignments guide.
+#### Submission File Naming
 
-- ✍️ **Written Assignment:** [A2_written.md](Assignments/A2_written.md)
-- 💻 **Coding Assignment:**
+Please use the following naming formats:
+
+- **Written:** `StudentLastName_A4_written.pdf`
+- **Coding (Colab / Jupyter):** `StudentLastName_A4_code.ipynb`
+
+#### Assignment Files
+
+- ✍️ **Written Component:** [A2_written.md](Assignments/A2_written.md)
+- 💻 **Coding Component:**
   [A2_code.ipynb](Assignments/A2_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A2_code.ipynb)
 
 ---
@@ -145,10 +161,17 @@ matrix of the structure to solve the unknown joint displacements.
 
 ### 📝 Assignments
 
-See Lecture 1 for how to complete assignments guide.
+#### Submission File Naming
 
-- ✍️ **Written Assignment:** [A3_written.md](Assignments/A3_written.md)
-- 💻 **Coding Assignment:**
+Please use the following naming formats:
+
+- **Written:** `StudentLastName_A4_written.pdf`
+- **Coding (Colab / Jupyter):** `StudentLastName_A4_code.ipynb`
+
+#### Assignment Files
+
+- ✍️ **Written Component:** [A3_written.md](Assignments/A3_written.md)
+- 💻 **Coding Component:**
   [A3_code.ipynb](Assignments/A3_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A3_code.ipynb)
 
 ---
@@ -207,9 +230,58 @@ to **3D truss systems**.
 
 ### 📝 Assignments
 
-- ✍️ **Written Assignment:** [A4_written.md](Assignments/A4_written.md)
-- 💻 **Coding Assignment:**
+#### Submission File Naming
+
+Please use the following naming formats:
+
+- **Written:** `StudentLastName_A4_written.pdf`
+- **Coding (Colab / Jupyter):** `StudentLastName_A4_code.ipynb`
+
+#### Assignment Files
+
+- ✍️ **Written Component:** [A4_written.md](Assignments/A4_written.md)
+- 💻 **Coding Component:**
   [A4_code.ipynb](Assignments/A4_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A4_code.ipynb)
+
+---
+
+---
+
+## 📅 Week 5 — Direct Stiffness Method (Space Trusses)
+
+### 📖 Lectures
+
+In Class Midterm today
+
+#### Part 1 — Space Trusses
+
+A brief outlook on extending the DSM framework to **3D truss systems**.
+
+- 🌐 **Slides (HTML):** [L4_3_ExtraTopics.slides.html](Lectures/L4/L4_3_ExtraTopics.slides.html)
+- 📄 **Slides (PDF):** [L4_3_ExtraTopics.pdf](Lectures/L4/L4_3_ExtraTopics.pdf)
+- 📓 **Notebook:** [L4_3_ExtraTopics.ipynb](Lectures/L4/L4_3_ExtraTopics.ipynb)
+
+### Extra In-Class Code
+
+N/A
+
+### 📝 Assignments
+
+#### Submission File Naming
+
+Please use the following naming formats:
+
+- **Written:** `StudentLastName_A4_written.pdf`
+- **Coding (Colab / Jupyter):** `StudentLastName_A4_code.ipynb`
+
+#### Assignment Files
+
+- ✍️ **Written Component:** [A4_written.md](Assignments/A5_written.md)
+- 💻 **Coding Component:**
+
+  [A5_code_2D.ipynb](Assignments/A5_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A5_code_2D.ipynb)
+
+  [A4_code_3D.ipynb](Assignments/A5_code.ipynb)[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Bruun-Automation-Research-Lab/CEE6501/blob/main/Assignments/A5_code_3D.ipynb)
 
 ---
 
