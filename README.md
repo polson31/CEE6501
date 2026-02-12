@@ -251,15 +251,16 @@ Please use the following naming formats:
 
 ### 📖 Lectures
 
-In Class Midterm today
+In Class Midterm today (1.5 - 2.0 hours)
 
 #### Part 1 — Space Trusses
 
-A brief outlook on extending the DSM framework to **3D truss systems**.
+A brief preview of extending the Direct Stiffness Method (DSM) framework to 3D truss systems, in preparation for the
+upcoming assignment where this extension will be implemented computationally.
 
-- 🌐 **Slides (HTML):** [L4_3_ExtraTopics.slides.html](Lectures/L4/L4_3_ExtraTopics.slides.html)
-- 📄 **Slides (PDF):** [L4_3_ExtraTopics.pdf](Lectures/L4/L4_3_ExtraTopics.pdf)
-- 📓 **Notebook:** [L4_3_ExtraTopics.ipynb](Lectures/L4/L4_3_ExtraTopics.ipynb)
+- 🌐 **Slides (HTML):** [L5_1_SpaceFrames.slides.html](Lectures/L5/L5_1_SpaceFrames.slides.html)
+- 📄 **Slides (PDF):** [L5_1_SpaceFrames.pdf](Lectures/L5/L5_1_SpaceFrames.pdf)
+- 📓 **Notebook:** [L5_1_SpaceFrames.ipynb](Lectures/L5/L5_1_SpaceFrames.ipynb)
 
 ### Extra In-Class Code
 
