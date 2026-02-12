@@ -6,6 +6,7 @@ dependencies:
   - python==3.12.12 # Core Python language version used throughout the course
   - numpy==2.4.0 # Fundamental array and numerical computing library
   - scipy==1.16.3 # Scientific computing tools (linear algebra, optimization, integration)
+  - sympy==1.14.0 # Symbolic mathematics library for algebra and calculus
   - matplotlib==3.10.8 # Plotting and visualization library for figures and results
   - plotly==6.5.2 # Interactive plotting library for web-based visualizations
   - pandas==2.3.3 # Data structures and tools for tabular and time-series data
@@ -16,7 +17,6 @@ dependencies:
   - pip==25.3 # REQUIRED when using pip: section
   # - seaborn     # for prettier plots (optional)
   # - scikit-learn  # for machine learning demos (optional)
-  # - sympy       # for symbolic math (optional)
   - pip:
       - playwright==1.57.0 # HTML to PDF
       - pypdf==6.5.0 # Manipulate PDFs
